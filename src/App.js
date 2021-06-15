@@ -1,24 +1,28 @@
 import logo from './logo.svg';
+import Formulario from './components/Formulario/index.js';
+import Listado from './components/Listado/index.js';
+import Total from './components/Total/index.js';
+import Filtro from './components/Filtro/index.js';
+
 import './App.css';
 
-function App() {
+var tasks = [
+  {id: 0, categoria: "Alimento", razon: "Fideos", monto: 20},
+  {id: 1, categoria: "Bazar", razon: "Copas", monto: 20},
+  {id: 2, categoria: "Auto", razon: "Neumaticos", monto: 20},
+];
+
+
+const App = () => {
   return (
+    <>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Formulario tasksi= {tasks}/>
+       <Listado tasks = {tasks} />
+       <Total tasks = {tasks} />
+       <Filtro tasks = {tasks} />
     </div>
+    </>
   );
 }
 
