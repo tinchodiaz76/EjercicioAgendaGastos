@@ -1,4 +1,5 @@
 import React from 'react';
+import { Col, Table} from "react-bootstrap/";
 // Arrow vs functions
 // 1. Tiene return implicito
 // 2. Sintaxis
@@ -7,15 +8,32 @@ import React from 'react';
 
 const Listado = ({tasks}) => {
   return (
-  <div>
-    <hr></hr>
-      <h3>Muestra el listado</h3>
-      {tasks.map(({id, categoria, razon, monto}) => (
-        <p key={id}> {categoria} {razon} {monto}</p>
-                        )
-      )
-    }
-  </div>
+    <>
+      <Col md={6} className="table-data">
+        <Table bordered hover>
+          <thead>
+            <tr>
+              <th>Categoria</th>
+              <th>Razon</th>
+              <th>Monto</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+              {tasks?.length > 0 &&
+                tasks.map(item => (
+                  <tr key={item.id}>
+                    <td>{item.categoria}</td>
+                    <td>{item.razon}</td>
+                    <td>{item.monto}</td>
+                  </tr>
+                ))}
+          </tbody>
+        </Table>
+      </Col>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ErrorMesage from "../ErrorMessage/ErrorMessage";
 import shortid from "short-id";
-import {useMemo} from "react";
+import { Col, Form } from "react-bootstrap";
 
 const defaultListado = {
   id: '',
@@ -20,6 +20,20 @@ const Formulario = ({ agregarComprob })  => {
 
     // las funciones que se disparan a través de eventos (recibe de forma implicita el evento)
     
+    const SetListado= (e) =>{
+      console.log(e.target.name);
+      console.log(e.target.value);
+
+      var prop=e.target.name;
+      var value=e.target.value;
+
+      setListado({
+        ...task,
+        [prop]:value
+      });
+
+    };
+
     const addTarea = (e) => {
         /*console.log(document.getElementById("categoria").value);*/
         e.preventDefault();
@@ -62,48 +76,29 @@ const Formulario = ({ agregarComprob })  => {
             setError(false);
           }
 
-
-          console.log("v_categoria=" + v_categoria);
-          console.log("v_razon=" + v_razon);
-          console.log("v_monto=" + v_monto);
-
-   
-         setListado({
-          ...task,
-          id: shortid.generate(),
-          categoria: v_categoria,
-          razon: v_razon,
-          monto: v_monto,
-        });
-
-        agregarComprob({task});
-
-/*        
-          Con esta linea y sin el setListado, ni el agregarComprob({task}) anda!!!!
-          agregarComprob({ ...task, categoria: v_categoria, razon: v_razon, monto: v_monto, id: shortid.generate() });
-*/
+          agregarComprob({...task, id:shortid.generate()});
     };
 
 
     return (
-      <>
-        <h3>Carga tu tarea</h3>
-        <form onSubmit={addTarea}>
+      <Col md={6}>
+        <h3>Creación la tarea</h3>
+        <Form onSubmit={addTarea}>
             <label>Ingrese la categoria</label>
-            <input type="text" name="categoria" placeholder="Ingrese la categoria..." />
+            <input type="text" name="categoria" placeholder="Ingrese la categoria..." onChange={SetListado}/>
             <br/>
             <label>Ingrese la razon</label>
-            <input type="text" name="razon" placeholder="Ingrese la razon..." />
+            <input type="text" name="razon" placeholder="Ingrese la razon..." onChange={SetListado}/>
             <br/>
             <label>Ingrese el monto</label>
-            <input type="text" name="monto" placeholder="Ingrese el monto..." />
+            <input type="text" name="monto" placeholder="Ingrese el monto..." onChange={SetListado}/>
             <br />
             <button type="submit">Cargar tarea</button>
             <br />
-        </form>
+        </Form>
         <ErrorMesage visible={error} descripcion={descripcion} />
-      </>
-        );
+      </Col>
+         );
   };
   
 export default Formulario;

@@ -6,7 +6,7 @@ const Total = ({ tasks })  => {
     
     let precioTotal= tasks.reduce((acumulador, item)=>{
     //Suma todos los precios del objetos productos.
-      return acumulador + item.monto;
+      return acumulador + parseFloat(item.monto);
     },0);
 
 
